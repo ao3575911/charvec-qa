@@ -1,0 +1,96 @@
+Q: What is charvec-qa?
+A: charvec-qa is a tiny C project for transparent character-vector QA search.
+---
+Q: What problem does charvec-qa solve?
+A: It shows how a small QA retriever can encode text, save vectors, and search without external NLP dependencies.
+---
+Q: Is charvec-qa a chatbot?
+A: No. It is a deterministic nearest-neighbor FAQ retriever for small curated datasets.
+---
+Q: Why is charvec-qa useful?
+A: It makes dataset parsing, vectorization, model storage, and inference easy to inspect in plain C.
+---
+Q: What is C?
+A: C is a general-purpose programming language with direct memory control.
+---
+Q: Who created C?
+A: Dennis Ritchie created C at Bell Labs.
+---
+Q: Why use C for this project?
+A: C keeps memory layout, parsing, and serialization visible for learning and auditing.
+---
+Q: What is one-hot encoding?
+A: One-hot encoding represents a symbol as a vector with one active position.
+---
+Q: What is a character vector?
+A: A character vector represents each text position with one slot for every character in the model charset.
+---
+Q: What is a charset?
+A: A charset is the set of unique bytes found in the training questions and answers.
+---
+Q: How does charvec-qa build the charset?
+A: It scans every question and answer, records each unique byte, and stores the charset in the model header.
+---
+Q: What is padding?
+A: Padding fills unused vector positions with zeroes so every record has the same vector length.
+---
+Q: Why does the model store max_len?
+A: max_len tells inference how many character positions each question and answer vector contains.
+---
+Q: Why does the model store charset_size?
+A: charset_size tells inference how wide each one-hot character position is.
+---
+Q: What is CVEC1?
+A: CVEC1 is the plain-text model format used by charvec-qa.
+---
+Q: What does the build command do?
+A: The build command reads a QA dataset, creates vectors, and writes a .cvec model file.
+---
+Q: What does the ask command do?
+A: The ask command loads a .cvec model, encodes the query, scores every stored question, and prints the best answer.
+---
+Q: What does inspect show?
+A: inspect prints model metadata such as pair count, max length, and charset size.
+---
+Q: How does matching work?
+A: Matching counts equal bit positions between the query vector and each stored question vector.
+---
+Q: Does charvec-qa understand meaning?
+A: No. It matches character patterns, so exact or similarly worded questions work best.
+---
+Q: What kind of dataset works best?
+A: A small curated FAQ with short direct questions and concise answers works best.
+---
+Q: When should I use this project?
+A: Use it for education, small local FAQs, and testing vector serialization.
+---
+Q: When should I not use this project?
+A: Do not use it for open-domain chat, semantic search at scale, or production NLP accuracy.
+---
+Q: Can I add my own questions?
+A: Yes. Edit examples/dataset.txt or create another dataset with Q, A, and separator records.
+---
+Q: What file extension should models use?
+A: Model files should use the .cvec extension.
+---
+Q: Is the project dependency free?
+A: Yes. It builds with a C99 compiler and make.
+---
+Q: How do I run the tests?
+A: Run make test from the repository root.
+---
+Q: What license does charvec-qa use?
+A: charvec-qa uses the MIT License.
+---
+Q: What is the main limitation?
+A: Character-position vectors are transparent but brittle when wording changes a lot.
+---
+Q: What is the suggested next improvement?
+A: Add optional token-level scoring while keeping the transparent model format documented and testable.
+---
+Q: Why store original answers in the model?
+A: Storing original answers avoids fragile reverse-decoding and keeps output readable.
+---
+Q: What did this project improve from the prototype?
+A: It uses one documented format, dynamic dimensions, bounded parsing, tests, and a single compatible CLI.
+---
